@@ -4,7 +4,7 @@ I am in my final year of a Computer Science degree at AUT. The following project
 ## Dubious
 Dubious is a Python library for propagating uncertainty through mathematical expressions using Monte Carlo simulation, allowing uncertain values to behave like normal numerical objects.
 
-You can use `Uncertain()` objects as a wrapper for distributions. You can then add these objects together as if they were the values they represent, and calculate statistics about the resulting uncertainty. I had the personal constraint for dubious using minimal external libraries. Other than a library for fast array computation, I wanted to implement as much myself as is possible.
+You can use `Uncertain()` objects as a wrapper for distributions, apply numerical methods, and calculate statistics about the resulting uncertainty. I had the personal constraint for dubious using minimal external libraries. Other than a library for fast array computation, I wanted to implement as much myself as is possible.
 
 An example:
 ```python
@@ -27,11 +27,13 @@ print(f"p10, p90: {sales.quantile(0.1)}, {sales.quantile(0.9)}")
 output: `Mean: 682.9556148632868,
 p10, p90: 282.49895472166844, 1195.2049066217655`
 
-It works by creating a graph of operations, evaluating said graph with Monte Carlo simulations. Correlation being implemented with Gaussian copula. We can achieve fairly decent performance by offloading most of the array based computation to other libraries, initially numpy before I created substratum as a drop in replacement.
+It works by creating a graph of operations, evaluating said graph with Monte Carlo simulations. Correlation being implemented with Gaussian copula. This type of project isn't feasible in vanilla python, to meet performance requirements we have to offload the array based computation to other libraries, initially this was numpy before I created substratum as a drop in replacement (details below).
 
-I got the idea by watching a engineering friend struggle with the concept and I wanted to attempt something that may have some real world use. I figured for this domain, Monte Carlo simulations through a graph of operations would be suitable for many use cases.
+I got the idea by watching a engineering friend struggle with the concept and I wanted to attempt a project that may have some real world use. I figured for this domain, Monte Carlo simulations through a graph of operations would be suitable for many use cases.
 
-At the time of writing this, there are a few libraries who do similar things in different ways. I've aimed for simplicity, I wanted to have a simple API that gives results quickly with minimal boilerplate. The distributions as numerical objects model does that well. While other libraries might be used for more rigorous uncertainty propagation, dubious is a good option for exploratory.
+At the time of writing this, there are a few libraries who do similar things in different ways. I've aimed for simplicity, I wanted to have a simple API that gives results quickly with minimal boilerplate. The distributions as numerical objects model does that well. While other libraries might be better for more rigorous uncertainty propagation, dubious is a good option for exploratory analysis given its ease of use.
+
+I learned a lot about writing code that's easy for other people to use in this project. Many of my prior projects were done alone, without the intention of someone else interacting with the code. For this library, I had to think about what would be most intuitive to use and how I could document that finer details of the codebase so that you can effectively use it without knowing the exact implementation. Sphinx was an excellent tool to achieve this, every time I implemented a function I'd write a docstring explaining what it does, and what limitations the user needs to be aware of.
 
 For more see: https://github.com/Flynn500/dubious/
 
@@ -59,7 +61,7 @@ Substratum supports the operations needed for dubious, so these are the ones I f
 - matrix methods and constructors
 - Cholesky and eigen decomposition
 
-The library is objectively worse than that which it sought to replace (numpy), but the performance is absolutely good enough for my use case. It was never meant to be a numpy replacement, rather a way to deepen my understanding of numerical computation and the python ecosystem as a whole. I find python an excellent language to work with (other than managing dependencies), the only issue I sometimes run into is performance. After this project, I can see myself picking up C, C++ or Rust as a tool to fill in these gaps where computational speed really matters.
+The library is less performant than that which it sought to replace (numpy), but the performance is absolutely good enough for my use case. And it was never meant to be a numpy replacement, rather a way to deepen my understanding of numerical computation and the python ecosystem as a whole. I find python an excellent language to work with (other than managing dependencies), the only issue I sometimes run into is performance. After this project, I can see myself picking up C, C++ or Rust as a tool to fill in these gaps where computational speed really matters.
 
 For more see: https://github.com/Flynn500/substratum
 
