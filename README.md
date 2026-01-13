@@ -2,9 +2,9 @@
 I am in my final year of a Computer Science degree at AUT. The following projects showcase what I have learned in and outside of university. 
 
 ## Dubious
-Dubious is a Python library for propagating uncertainty through mathematical expressions using Monte Carlo simulation, allowing uncertain values to behave like normal numerical objects.
+Dubious is a Python library for propagating uncertainty through mathematical expressions using Monte Carlo simulation, allowing uncertain values to behave like normal numerical objects. You can use `Uncertain()` objects as a wrapper for distributions, apply numerical methods, and calculate statistics about the resulting uncertainty. 
 
-You can use `Uncertain()` objects as a wrapper for distributions, apply numerical methods, and calculate statistics about the resulting uncertainty. I had the personal constraint for dubious using minimal external libraries. Other than a library for fast array computation, I wanted to implement as much myself as is possible.
+I had the personal constraint for this project of using minimal external libraries. Other than a library for fast array computation (originally numpy), I wanted to implement as much myself as is possible.
 
 An example:
 ```python
