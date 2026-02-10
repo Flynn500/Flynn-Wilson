@@ -33,28 +33,28 @@ At the time of writing this, there are a few libraries who do similar things in 
 
 I learned a lot about writing code that's easy for other people to use in this project. Many of my prior projects were done alone, without the intention of someone else interacting with the code. For this library, I had to think about what would be most intuitive to use and how I could document that finer details of the codebase so that you can effectively use it without knowing the exact implementation. Sphinx was an excellent tool to achieve this, every time I implemented a function I'd write a docstring explaining what it does, and what limitations the user needs to be aware of.
 
-This type of project isn't feasible in vanilla python, to meet performance requirements we have to offload the array based computation to other libraries, initially this was numpy before I created substratum (my next project) as a drop in replacement.
+This type of project isn't feasible in vanilla python, to meet performance requirements we have to offload the array based computation to other libraries, initially this was numpy before I created IronForest (my next project) as a drop in replacement.
 
 For more about dubious see: https://github.com/Flynn500/dubious/
 
-## Substratum
-Substratum is another library, this time made in rust. Substratum is a Rust-based numerical computation library with Python bindings, originally built to support Dubious but it's also designed to stand as its own project. After porting it to dubious, the two libraries stand by themselves, no external dependencies required. It is named as such as it is the underlying "substrate" of my original library.
+## IronForest
+IronForest is another library, this time made in rust. IronForest is a Rust-based numerical computation library with Python bindings, originally built to support Dubious but it's also designed to stand as its own project. After porting it to dubious, the two libraries stand by themselves, no external dependencies required. It is named as such as it is the underlying "substrate" of my original library.
 
-I developed substratum as I became interested in how high performance libraries like numpy worked under the hood after developing dubious. When using python, you frequently find yourself using "magic" libraries like numpy to compute things at large scales. This project taught me how to take advantage of lower level languages to achieve these performance boosts myself, and bring them back into python to keep things simple to use. I chose rust for this project simply because I had read the book in my second year of university, and pyo3 provides a simple way to create python bindings.
+I developed IronForest as I became interested in how high performance libraries like numpy worked under the hood after developing dubious. When using python, you frequently find yourself using "magic" libraries like numpy to compute things at large scales. This project taught me how to take advantage of lower level languages to achieve these performance boosts myself, and bring them back into python to keep things simple to use. I chose rust for this project simply because I had read the book in my second year of university, and pyo3 provides a simple way to create python bindings.
 
 An example of matrix multiplication:
 
 ```python
-import substratum as ss
+import ironforest as irn
 
-a = ss.Array([2, 2], [1.0, 2.0, 3.0, 4.0])
-b = ss.Array([2, 2], [5.0, 6.0, 7.0, 8.0])
+a = irn.Array([2, 2], [1.0, 2.0, 3.0, 4.0])
+b = irn.Array([2, 2], [5.0, 6.0, 7.0, 8.0])
 
 print(f"a @ b = {(a @ b).tolist()}")
 ```
 output: `a @ b = [19.0, 22.0, 43.0, 50.0]`
 
-Substratum supports the operations needed for dubious, so these are the ones I focused on implementing:
+IronForest supports the operations needed for dubious, so these are the ones I focused on implementing:
 - Broadcast operations
 - trig methods
 - Statistical methods (mean, var, quantile)
@@ -63,5 +63,5 @@ Substratum supports the operations needed for dubious, so these are the ones I f
 
 The library is less performant than that which it sought to replace (numpy), but the performance is absolutely good enough for my use case. And it was never meant to be a numpy replacement, rather a way to deepen my understanding of numerical computation and the python ecosystem as a whole. I find python an excellent language to work with (other than managing dependencies), the only issue I sometimes run into is performance. After this project, I can see myself picking up C, C++ or Rust as a tool to fill in these gaps where computational speed really matters.
 
-For more see: https://github.com/Flynn500/substratum
+For more see: https://github.com/Flynn500/ironforest
 
